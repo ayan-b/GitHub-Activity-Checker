@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      
+      <meta charset="UTF-8">
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="./static/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>GitHub Activity Checker</title>
+    </head>
+
+    <body>
+
+      <nav>
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo center">GitHub Activity Checker</a>
+          <ul class="left hide-on-med-and-down">
+          </ul>
+        </div>
+      </nav>
+        <nav>
+            <div class="nav-wrapper teal">
+                <form>
+                <div class="input-field">
+                    <input id="searchUser" type="search" placeholder = "Enter GitHub username" required>
+                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                </div>
+                </form>
+            </div>
+        </nav>
+      <br> <br>
+      <div id="profile"></div>
+      <!--JavaScript at end of body for optimized loading-->
+      <script src = "./static/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="static/materialize/js/materialize.min.js"></script>
+      <script src = "js/main.js"></script>
+    </body>
+  </html>
+        
