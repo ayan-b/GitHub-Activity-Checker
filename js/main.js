@@ -21,33 +21,44 @@ $(document).ready(function(){
                 }
             }).done(function(repos){
                 $.each(repos, function(index, repo){
+                    let desc = repo.description;
+                    let lang = repo.language.toLowerCase();
+                    if (lang=='html')
+                        lang = 'html5';
+                    else if (lang=='c++')
+                        lang = 'cplusplus';
+                    else if (lang=='css')
+                        lang = 'css3';
                     $('#repos').append(`
-                    <div class="row">
-                    <div class="col s10 offset-s1 m10 offset-m1">
-                      <div class="card hoverable blue-grey darken-1">
-                        <div class="card-content white-text">
-                          <span class="card-title">${repo.name}</span>
-                          <div class="card-content">
-                          <div class="container">${repo.description}</div>
-                          <div>
-                            <div class = "collection">
-                                <a target = "_blank" href="https://github.com/${username}/${repo.name}/network/members" class="collection-item"><span class="new badge" data-badge-caption="">${repo.forks_count}</span>Forks</a>
-                                <a target = "_blank" href="https://github.com/${username}/${repo.name}/watchers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.watchers_count}</span>Watchers</a>
-                                <a target = "_blank" href="https://github.com/${username}/${repo.name}/stargazers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.stargazers_count}</span>Stars</a>
+                    
+                        <div class="col s12 m6">
+                            <div class="card hoverable blue-grey darken-1">		
+                                <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">chevron_right</i></a>
+                                <div class="card-content white-text">
+                                    <span class="card-title activator white-text text-darken-4">${repo.name}<i class="material-icons right">more_vert</i></span>
+                                    <div class = "collection">
+                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}/network/members" class="collection-item"><span class="new badge" data-badge-caption="">${repo.forks_count}</span>Forks</a>
+                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}/watchers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.watchers_count}</span>Watchers</a>
+                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}/stargazers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.stargazers_count}</span>Stars</a>
+                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="badge"><i class="devicon-${lang}-plain colored"></i>${repo.language}</span>Language</a>
+                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.created_at.substring(0,10)}</span>Created</a>
+                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.updated_at.substring(0,10)}</span>Last Updated</a>
+                                    </div>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">${repo.name}<i class="material-icons right blue-grey-text darken-1 small">arrow_drop_down_circle</i></span>
+                                    <p>${repo.description}</p>
+                                </div>
                             </div>
-                        <div class="card-action">
-                          <a href="https://github.com/${username}/${repo.name}">See More</a>
                         </div>
-                      </div>
-                    </div>
-                </div>
-                `);
+                    
+                    `);
                 });
             });
             $('#profile').html(`
             <div class="col s12 m7">
                 <h4 class="header"><i class="small material-icons">account_box</i>${user.name}</h4>
-                <div class="card horizontal">
+                <div class="card hoverable horizontal">
                 <div class="card-image">
                     <img src="${user.avatar_url}" class="responsive avatar">
                 </div>
@@ -70,7 +81,9 @@ $(document).ready(function(){
                 </div>
                 </div>
             </div>
+            <div class="row container">
             <div id="repos"></div>
+            </div>
             `)
         });
     });
