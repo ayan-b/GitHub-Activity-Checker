@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $('#searchUser').on('keyup', function(e){
         let username = e.target.value;
-        //console.log(username);
+
         // Make request to GitHub
         $.ajax({
             url: 'https://api.github.com/users/' + username,
@@ -16,12 +16,12 @@ $(document).ready(function(){
                 data:{
                     client_id:'f7a2c629ce3110fbf13d',
                     client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a',
-                    sort: 'pushed: asc',
+                    sort: 'updated: asc',
                     per_page: 6
                 }
             }).done(function(repos){
+                console.log(repos);
                 $.each(repos, function(index, repo){
-                    let desc = repo.description;
                     let lang = repo.language.toLowerCase();
                     if (lang=='html')
                         lang = 'html5';
@@ -76,7 +76,7 @@ $(document).ready(function(){
                   </div>
                     </div>
                     <div class="card-action">
-                        <a href="${user.html_url}">See More</a>
+                        <a target = "_blank" href="${user.html_url}">See More</a>
                     </div>
                 </div>
                 </div>
