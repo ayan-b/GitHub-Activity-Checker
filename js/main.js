@@ -29,6 +29,8 @@ $(document).ready(function(){
                         lang = 'cplusplus';
                     else if (lang=='css')
                         lang = 'css3';
+                    else if (lang=='c#')
+                        lang = 'csharp';
                     $('#repos').append(`
                     
                         <div class="col s12 m6">
