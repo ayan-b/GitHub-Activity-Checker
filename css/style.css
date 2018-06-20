@@ -1,4 +1,9 @@
 .avatar{
     width:350px;
-    height:430px;
+    height:auto;
   }
+
+#details{
+  margin: 20px;
+  width: 100%;
+}

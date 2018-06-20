@@ -32,9 +32,9 @@ $(document).ready(function(){
                     else if (lang=='c#')
                         lang = 'csharp';
                     $('#repos').append(`
-                    
+
                         <div class="col s12 m6">
-                            <div class="card hoverable blue-grey darken-1">		
+                            <div class="card hoverable blue-grey darken-1">
                                 <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">chevron_right</i></a>
                                 <div class="card-content white-text">
                                     <span class="card-title activator white-text text-darken-4">${repo.name}<i class="material-icons right">more_vert</i></span>
@@ -53,7 +53,7 @@ $(document).ready(function(){
                                 </div>
                             </div>
                         </div>
-                    
+
                     `);
                 });
             });
@@ -61,10 +61,11 @@ $(document).ready(function(){
             <div class="col s12 m7">
                 <h4 class="header"><i class="small material-icons">account_box</i>${user.name}</h4>
                 <div class="card hoverable horizontal">
-                <div class="card-image">
+                <div id="details" class="row container">
+                <div class="card-image col s12 m5">
                     <img src="${user.avatar_url}" class="responsive avatar">
                 </div>
-                <div class="card-stacked">
+                <div class="card-stacked col s12 m7">
                     <div class="card-content">
                     <div class="collection">
                     <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.bio}</span>Bio</a>
@@ -80,6 +81,7 @@ $(document).ready(function(){
                     <div class="card-action">
                         <a target = "_blank" href="${user.html_url}">See More</a>
                     </div>
+                </div>
                 </div>
                 </div>
             </div>
