@@ -7,3 +7,11 @@
   margin: 20px;
   width: 100%;
 }
+
+#honeypot {
+  display: none; /*makes the field not visible to humans*/
+}
+
+#thankyou_message{
+  margin: 20px;
+}
