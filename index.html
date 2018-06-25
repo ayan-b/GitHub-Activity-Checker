@@ -12,7 +12,7 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="./static/materialize/css/materialize.min.css"  media="screen,projection"/>
-
+      <link rel="icon" type="image/png" href="static/images/favicon.png">
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <link rel="stylesheet" href="css/style.css">
@@ -52,7 +52,7 @@
       <br> <br>
       <div id="profile"></div>
       <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red hoverable modal-trigger" href="#modal1">
+        <a class="btn-floating btn-large red hoverable modal-trigger tooltipped" data-position="left" data-tooltip="Send a message" href="#modal1">
           <i class="large material-icons">comment</i>
         </a>
       </div>
@@ -109,6 +109,10 @@
       <script>
       $(document).ready(function(){
         $('.modal').modal();
+      });
+
+       $(document).ready(function(){
+        $('.tooltipped').tooltip();
       });
     </script>
     </body>
