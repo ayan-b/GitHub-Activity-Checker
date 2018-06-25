@@ -1,6 +1,6 @@
-// Credits: https://github.com/dwyl/learn-to-send-email-via-google-script-html-no-server/blob/master/form-submission-handler.js
+// credits : https://github.com/dwyl/learn-to-send-email-via-google-script-html-no-server
 
-const SHOW_DEBUG = false;
+const SHOW_DEBUG = true;
 (function() {
     function validEmail(email) { // see:
       var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
