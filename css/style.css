@@ -22,13 +22,15 @@
 }
 
 .left-button{
-  left: 23px;
+  left: 5px;
   right: auto;
+  bottom: 20px;
  }
- 
+
  .ui-btn-top-hide {
 	position: fixed;
 	bottom: 20px;
 	right: 5px;
-	display: none;
+  display: none;
+  opacity: '0.1';
 }

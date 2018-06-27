@@ -39,7 +39,7 @@ $(document).ready(function(){
                     $('#activities').append(`
                     <div class="row">
                         <div class="col s12 m12">
-                            <div class="card blue-grey darken-1 hoverable">
+                            <div class="card teal hoverable">
                                 <div class="card-content white-text">
                                     <small class="icon-text"><i class="material-icons tiny">date_range</i>${date}</small>
                                     <p>${show}</p>
@@ -128,6 +128,7 @@ $(document).ready(function(){
                 </div>
             </div>
             <div class="row container">
+                <h3>Recent Repos</h3>
                 <div id="repos"></div>
             </div>
             <div class="row container">
@@ -155,6 +156,6 @@ $(document).ready(function() {
 		} else {
 			$(btnTopHide).fadeOut();
 		}
-	});
+    });
 
 });
