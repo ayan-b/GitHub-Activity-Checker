@@ -15,3 +15,20 @@
 #thankyou_message{
   margin: 20px;
 }
+
+.material-icons, .icon-text {
+  vertical-align: middle !important;
+  padding-bottom: 3px;
+}
+
+.left-button{
+  left: 23px;
+  right: auto;
+ }
+ 
+ .ui-btn-top-hide {
+	position: fixed;
+	bottom: 20px;
+	right: 5px;
+	display: none;
+}

@@ -12,6 +12,45 @@ $(document).ready(function(){
 
         }).done(function(user){
             $.ajax({
+                url : 'https://api.github.com/users/' + username + '/events',
+                data: {
+                    client_id:'f7a2c629ce3110fbf13d',
+                    client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
+                }
+            }).done(function(activities){
+                $.each(activities, function(index, activity){
+                    let user = '<a href="https://github.com/' + activity.actor.login + '">' + activity.actor.login + "</a>",
+                    repo = '< href="https://github.com/' + activity.repo.name + ">" + activity.repo.name + "</a",
+                    date = activity.created_at;
+                    date = date.replace ("T"," at ");
+                    date = date.replace ("Z","");
+                    date = "On " + date;
+                    show = 'Test';
+                            
+                    let event_type = activity.type;
+                    switch (event_type) {
+                        case "ReleaseEvent":
+                            show = '&nbsp;released&nbsp;<a href="' + activity.payload.release.zipball_url +
+                                    '"></span></a>&nbsp;<a href="' +
+                                    activity.payload.release.html_url + '">' + activity.payload.release.name +
+                                    "</a></span>&nbsp;at&nbsp;" + repo + "<br/>";
+                            break;
+                    }
+                    $('#activities').append(`
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card blue-grey darken-1 hoverable">
+                                <div class="card-content white-text">
+                                    <small class="icon-text"><i class="material-icons tiny">date_range</i>${date}</small>
+                                    <p>${show}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                    );
+                });
+            });
+            $.ajax({
                 url: 'https://api.github.com/users/' + username + '/repos',
                 data:{
                     client_id:'f7a2c629ce3110fbf13d',
@@ -20,17 +59,20 @@ $(document).ready(function(){
                     per_page: 6
                 }
             }).done(function(repos){
-                console.log(repos);
+                //console.log(repos);
                 $.each(repos, function(index, repo){
                     let lang = repo.language.toLowerCase();
-                    if (lang=='html')
-                        lang = 'html5';
-                    else if (lang=='c++')
-                        lang = 'cplusplus';
-                    else if (lang=='css')
-                        lang = 'css3';
-                    else if (lang=='c#')
-                        lang = 'csharp';
+                    switch (lang){
+                        case "html":
+                            lang = "html5";
+                            break;
+                        case "c++":
+                            lang = "cplusplus";
+                            break;
+                        case "c#":
+                            lang = "csharp";
+                            break;
+                    }
                     $('#repos').append(`
 
                         <div class="col s12 m6">
@@ -86,9 +128,33 @@ $(document).ready(function(){
                 </div>
             </div>
             <div class="row container">
-            <div id="repos"></div>
+                <div id="repos"></div>
+            </div>
+            <div class="row container">
+                <h3>Activities</h3>
+                <div id="activities"></div>
             </div>
             `)
         });
     });
+});
+
+
+$(document).ready(function() {
+
+	var btnTopHide = '.ui-btn-top-hide';
+
+	$(document).on('click', btnTopHide, function(evt) {
+		evt.preventDefault();
+		$('body').velocity('scroll', {duration: 1000, easing: 'quart'});
+	});
+
+	$(window).on('scroll', function(){
+		if ($(this).scrollTop() > 100) {
+			$(btnTopHide).fadeIn();
+		} else {
+			$(btnTopHide).fadeOut();
+		}
+	});
+
 });
