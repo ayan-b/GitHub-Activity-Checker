@@ -136,7 +136,6 @@ $(document).ready(function(){
                             break;
                     }
                     $('#repos').append(`
-
                         <div class="col s12 m6">
                             <div class="card hoverable blue-grey darken-1">
                                 <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">chevron_right</i></a>
@@ -157,7 +156,6 @@ $(document).ready(function(){
                                 </div>
                             </div>
                         </div>
-
                     `);
                 });
             });
