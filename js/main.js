@@ -19,28 +19,90 @@ $(document).ready(function(){
                 }
             }).done(function(activities){
                 $.each(activities, function(index, activity){
-                    let user = '<a href="https://github.com/' + activity.actor.login + '">' + activity.actor.login + "</a>",
-                    repo = '< href="https://github.com/' + activity.repo.name + ">" + activity.repo.name + "</a",
-                    date = activity.created_at;
-                    date = date.replace ("T"," at ");
-                    date = date.replace ("Z","");
-                    date = "On " + date;
-                    show = 'Test';
-                            
+                    let user = '<a target="_blank" href="https://github.com/' + activity.actor.login + '">' + activity.actor.login + "</a>";
+                    let repo = '<a target="_blank" href="https://github.com/' + activity.repo.name + '">' + activity.repo.name + "</a>";
+                    let date = activity.created_at;
+                        date = date.replace ("T"," at ");
+                        date = date.replace ("Z","");
+                        date = "On " + date;
+                        date = date + "GMT";
                     let event_type = activity.type;
+                    let show = event_type;
                     switch (event_type) {
+                        case "CommitCommentEvent":
+                            break;
+                        case "CreateEvent":
+                            break;
+                        case "DeleteEvent":
+                            break;
+                        case "DownloadEvent":
+                            break;
+                        case "FollowEvent":
+                            show = user + '&nbsp;started following&nbsp;<a href="' + activity.payload.target.html_url + '">' + activity.payload.target.login + "</a><br>";
+                            break;
+                        case "ForkEvent":
+                            show = "&nbsp;forked&nbsp;" + repo + '&nbsp;into&nbsp;&nbsp;<a href="https://github.com/' + activity.payload.forkee.full_name + '">' + activity.payload.forkee.full_name + "</a>&nbsp;<br>";
+                            break;
+                        case "ForkApplyEvent":
+                            break;
+                        case "GistEvent":
+                            break;
+                        case "GollumEvent":
+                            break;
+                        case "IssueCommentEvent":
+                            break;
+                        case "IssuesEvent":
+                            var converter = new showdown.Converter(),
+                            action = activity.payload.action,
+                            body = activity.payload.issue.body.length > 250 ? activity.payload.issue.body.substring(0, 249) + "..." : activity.payload.issue.body;
+                            body = converter.makeHtml(body);
+                            show = user + "&nbsp;" + action + "&nbsp;issue&nbsp;" + repo + '&nbsp;/&nbsp;<a target="_blank" href="' + activity.payload.issue.html_url + '">' + activity.payload.issue.title + "</a><blockquote>" + body + "</blockquote>", action
+                            break;
+                        case "MemberEvent":
+                            break;
+                        case "PublicEvent":
+                            break;
+                        case "PullRequestEvent":
+                            show = user + "&nbsp;" + activity.payload.action + '&nbsp; a pull request:&nbsp;<a href="' + activity.payload.pull_request.html_url + '">' + activity.repo.name + "/#" + activity.payload.number + '</a><br/><blockquote><a href="' + activity.payload.pull_request.head.repo.html_url + "/commit/" + activity.payload.pull_request.head.sha + '">' + activity.payload.pull_request.head.sha.substring(0, 10) + "</a>&nbsp;" + activity.payload.pull_request.title + "</blockquote>";
+                            break;
+                        case "PullRequestReviewCommentEvent":
+                            break;
+                        case "PushEvent":
+                            var ref = activity.payload.ref.replace(/^.*\/(.*)$/, "$1"),
+                                body = "",
+                                count = activity.payload.commits.length,
+                                commit = 1 === count ? "commit" : "commits",
+                                ii = 1,
+                                first = activity.payload.commits[0].sha.substring(0, 10),
+                                last = activity.payload.commits[count - 1].sha.substring(0, 10);
+                            if (1 === count) body += '<blockquote><a href="https://github.com/' + activity.repo.name + "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + "</a>&nbsp;" + (activity.payload.commits[ii - 1].message.length > 250 ? activity.payload.commits[ii - 1].message.substring(0, 249) + "..." : activity.payload.commits[ii - 1].message) + "</blockquote>";
+                            else if (count > 4) {
+                                for (; 5 >= ii;) body += '<blockquote><a href="https://github.com/' + activity.repo.name + "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + "</a>&nbsp;" + (activity.payload.commits[ii - 1].message.length > 250 ? activity.payload.commits[ii - 1].message.substring(0, 249) + "..." : activity.payload.commits[ii - 1].message) + "</blockquote>", ii++;
+                                body += '<a target="_blank" href="https://github.com/' + activity.repo.name + "/compare/" + first + "..." + last + '">compare these commits and ' + (count - 5) + " others &raquo;</a>"
+                            } else {
+                                for (; count >= ii;) body += '<blockquote><a href="https://github.com/' + activity.repo.name + "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + "</a>&nbsp;" + (activity.payload.commits[ii - 1].message.length > 250 ? activity.payload.commits[ii - 1].message.substring(0, 249) + "..." : activity.payload.commits[ii - 1].message) + "</blockquote>", ii++;
+                                body += '<a target="_blank" href="https://github.com/' + activity.repo.name + "/compare/" + first + "..." + last + '">compare these commits &raquo;</a>'
+                            }
+                            show = user +"&nbsp;pushed&nbsp;" + count + "&nbsp;" + commit + ' to&nbsp;<span class="well"><span class="octicon octicon-git-branch"></span>&nbsp;<a href="https://github.com/' + activity.repo.name + "/tree/" + ref + '">' + ref + "</a>&nbsp;</span>&nbsp;at&nbsp;" + repo + "<br/>" + body;
+                            break;
                         case "ReleaseEvent":
-                            show = '&nbsp;released&nbsp;<a href="' + activity.payload.release.zipball_url +
-                                    '"></span></a>&nbsp;<a href="' +
+                            show = user + '&nbsp;released&nbsp;<a target="_blank" href="' + activity.payload.release.zipball_url +
+                                    '"></span></a>&nbsp;<a target="_blank" href="' +
                                     activity.payload.release.html_url + '">' + activity.payload.release.name +
                                     "</a></span>&nbsp;at&nbsp;" + repo + "<br/>";
                             break;
+                        case "TeamAddEvent":
+                            break;
+                        case "WatchEvent":
+                            show = "<div>" + user + "&nbsp;started watching&nbsp;" + repo + "<br>" + "</div>"
+                            break;
+                    
                     }
                     $('#activities').append(`
                     <div class="row">
                         <div class="col s12 m12">
-                            <div class="card teal hoverable">
-                                <div class="card-content white-text">
+                            <div class="card hoverable">
+                                <div class="card-content">
                                     <small class="icon-text"><i class="material-icons tiny">date_range</i>${date}</small>
                                     <p>${show}</p>
                                 </div>
