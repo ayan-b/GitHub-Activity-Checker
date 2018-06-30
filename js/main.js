@@ -21,11 +21,8 @@ $(document).ready(function(){
                 $.each(activities, function(index, activity){
                     let user = '<a target="_blank" href="https://github.com/' + activity.actor.login + '">' + activity.actor.login + "</a>";
                     let repo = '<a target="_blank" href="https://github.com/' + activity.repo.name + '">' + activity.repo.name + "</a>";
-                    let date = activity.created_at;
-                        date = date.replace ("T"," at ");
-                        date = date.replace ("Z","");
-                        date = "On " + date;
-                        date = date + "GMT";
+                    let date_cr = activity.created_at;
+                    let date_diff = getDifference (new Date() - new Date(date_cr));
                     let event_type = activity.type;
                     let show = event_type;
                     switch (event_type) {
@@ -35,6 +32,11 @@ $(document).ready(function(){
                             ' at ' + repo + '<blockquote>' + activity.comment.body;
                             break;
                         case "CreateEvent":
+                            var type = activity.payload.ref_type;
+                            if (type == "branch" || type == "tag") 
+                                show = user + " created " + type + " " + activity.payload.ref + " at " + repo + "<br/>";
+                            else
+                                show = user + " created " + type + " " + " at " + repo + "<br/>";
                             break;
                         case "DeleteEvent":
                             var ref = activity.payload.ref,
@@ -42,8 +44,8 @@ $(document).ready(function(){
                             show = user + " deleted " + ref_type + " " + ref + " at " + repo + "<br>";
                             break;
                         case "ForkEvent":
-                            show = user + "forked" + repo + 'into <a href="https://github.com/' + 
-                            activity.payload.forkee.full_name + '">' + activity.payload.forkee.full_name + "</a><br>";
+                            show = user + " forked " + repo + ' into <a href="https://github.com/' + 
+                            activity.payload.forkee.full_name + '"> ' + activity.payload.forkee.full_name + "</a><br>";
                             break;
                         case "GollumEvent":
                             break;
@@ -63,6 +65,15 @@ $(document).ready(function(){
                                    activity.payload.issue.html_url + '">' + ': ' + activity.payload.issue.title + 
                                    "</a><blockquote>" + body + "</blockquote>";
                             break;
+                        case "LabelEvent":
+                            var action = activity.action;
+                            switch (action){
+                                case "edited":
+                                    show = user + " " +  action + activity.changes.name.from + " to " + activity.label.name;
+                                    break;
+                                default:
+                                    show = user + " " +  action  + " " + activity.label.name;
+                            }
                         case "MemberEvent":
                             break;
                         case "PublicEvent":
@@ -109,7 +120,7 @@ $(document).ready(function(){
                         <div class="col s12 m12">
                             <div class="card hoverable">
                                 <div class="card-content">
-                                    <small class="icon-text"><i class="material-icons tiny">date_range</i>${date}</small>
+                                    <small class="icon-text"><i class="material-icons tiny">date_range</i>${date_diff}</small>
                                     <p>${show}</p>
                                 </div>
                             </div>
@@ -236,3 +247,32 @@ function truncate (str, len){
     }
 return str;
 }
+
+function getDifference(milliseconds){
+        'use strict';
+      
+        function numberEnding(number) {
+          return (number > 1) ? 's ago' : ' ago';
+        }
+        var temp = Math.floor(milliseconds / 1000);
+      
+        var years = Math.floor(temp / 31536000);
+        if (years) return years + ' year' + numberEnding(years);
+      
+        var months = Math.floor((temp %= 31536000) / 2592000);
+        if (months) return months + ' month' + numberEnding(months);
+      
+        var days = Math.floor((temp %= 2592000) / 86400);
+        if (days) return days + ' day' + numberEnding(days);
+      
+        var hours = Math.floor((temp %= 86400) / 3600);
+        if (hours) return 'about ' + hours + ' hour' + numberEnding(hours);
+      
+        var minutes = Math.floor((temp %= 3600) / 60);
+        if (minutes) return minutes + ' minute' + numberEnding(minutes);
+      
+        var seconds = temp % 60;
+        if (seconds) return seconds + ' second' + numberEnding(seconds);
+      
+        return 'just now';
+    }
