@@ -12,12 +12,13 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="./static/materialize/css/materialize.min.css"  media="screen,projection"/>
-
+      <link rel="icon" type="image/png" href="static/images/favicon.png">
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
       <link rel="stylesheet" href="/static/octicons-7.3.0/package/build/build.css">
+
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120952687-1"></script>
       <script>
@@ -30,7 +31,6 @@
     </head>
 
     <body>
-
       <nav>
         <div class="nav-wrapper">
           <a href="#!" class="brand-logo center">GitHub Activity Checker</a>
@@ -42,7 +42,7 @@
             <div class="nav-wrapper teal">
                 <form>
                 <div class="input-field">
-                    <input id="searchUser" type="search" placeholder = "Enter GitHub username" required>
+                    <input id="searchUser" type="search" placeholder = "Enter GitHub username" required autofocus>
                     <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                     <i class="material-icons">close</i>
                 </div>
@@ -51,8 +51,8 @@
         </nav>
       <br> <br>
       <div id="profile"></div>
-      <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red hoverable modal-trigger" href="#modal1">
+      <div class="fixed-action-btn left-button">
+        <a class="btn-floating btn-large purple hoverable modal-trigger tooltipped" data-delay="20" data-position="right" data-tooltip="Send a message" href="#modal1">
           <i class="large material-icons">comment</i>
         </a>
       </div>
@@ -92,6 +92,7 @@
                   <i class="material-icons right">send</i>
                 </button>
               </div>
+
           </form>
       
           <div style="display:none;" id="thankyou_message" class="">
@@ -100,14 +101,24 @@
 
         </div>
       </div>
+
+      <div class="">
+        <a class="ui-btn-top-hide btn-floating btn-large waves-effect waves-light purple tooltipped hoverable" data-position="left" data-tooltip="Go to top" data-delay="20">
+          <i class="material-icons">arrow_upward</i></a>
+      </div>
       <!--JavaScript at end of body for optimized loading-->
       <script src = "./static/jquery-3.2.1.min.js"></script>
       <script type="text/javascript" src="static/materialize/js/materialize.min.js"></script>
       <script src = "js/main.js"></script>
       <script data-cfasync="false" type="text/javascript" src="js/form-handler.js"></script>
+      <script type="text/javascript" src="static/showdown/dist/showdown.min.js"></script>
       <script>
       $(document).ready(function(){
         $('.modal').modal();
+      });
+
+       $(document).ready(function(){
+        $('.tooltipped').tooltip();
       });
     </script>
     </body>
