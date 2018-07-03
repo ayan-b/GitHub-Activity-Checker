@@ -8,7 +8,16 @@ $(document).ready(function(){
             data:{
                 client_id:'f7a2c629ce3110fbf13d',
                 client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
-            }
+            }, 
+            beforeSend: function(){
+                $('#profile').html(`<div class="progress" id="loader1">
+                    <div class="indeterminate"></div>
+                </div>`
+            )
+            },
+            complete: function() {
+                $('#loader1').hide();
+            },
 
         }).done(function(user){
             $.ajax({
@@ -16,7 +25,16 @@ $(document).ready(function(){
                 data: {
                     client_id:'f7a2c629ce3110fbf13d',
                     client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
-                }
+                },
+                beforeSend: function(){
+                    $('#activities').html(`<div class="progress" id="loader2">
+                        <div class="indeterminate"></div>
+                    </div>`
+                )
+                },
+                complete: function() {
+                    $('#loader2').hide();
+                },
             }).done(function(activities){
                 $.each(activities, function(index, activity){
                     let user = '<a target="_blank" href="https://github.com/' + activity.actor.login + '">' + activity.actor.login + "</a>";
@@ -44,8 +62,8 @@ $(document).ready(function(){
                             show = user + " deleted " + ref_type + " " + ref + " at " + repo + "<br>";
                             break;
                         case "ForkEvent":
-                            show = user + " forked " + repo + ' into <a href="https://github.com/' + 
-                            activity.payload.forkee.full_name + '"> ' + activity.payload.forkee.full_name + "</a><br>";
+                            show = user + " forked " + '<a target="_blank" href="https://github.com/' + 
+                            activity.payload.forkee.full_name + '"> ' + activity.payload.forkee.full_name + "</a> from " + repo + "<br>";
                             break;
                         case "GollumEvent":
                             break;
@@ -65,22 +83,17 @@ $(document).ready(function(){
                                    activity.payload.issue.html_url + '">' + ': ' + activity.payload.issue.title + 
                                    "</a><blockquote>" + body + "</blockquote>";
                             break;
-                        case "LabelEvent":
-                            var action = activity.action;
-                            switch (action){
-                                case "edited":
-                                    show = user + " " +  action + activity.changes.name.from + " to " + activity.label.name;
-                                    break;
-                                default:
-                                    show = user + " " +  action  + " " + activity.label.name;
-                            }
                         case "MemberEvent":
                             break;
                         case "PublicEvent":
                             show = user + ' made ' + repo + ' public';
                             break;
                         case "PullRequestEvent":
-                            show = user + " " + activity.payload.action + ' a pull request:<a href="' + activity.payload.pull_request.html_url + '">' + activity.repo.name + "/#" + activity.payload.number + '</a><br/><blockquote><a href="' + activity.payload.pull_request.head.repo.html_url + "/commit/" + activity.payload.pull_request.head.sha + '">' + activity.payload.pull_request.head.sha.substring(0, 10) + "</a>&nbsp;" + activity.payload.pull_request.title + "</blockquote>";
+                            show = user + " " + activity.payload.action + ' a pull request:<a target="_blank" href="' +
+                            activity.payload.pull_request.html_url + '">' + activity.repo.name + "/#" +
+                            activity.payload.number + '</a><br/><blockquote><a href="' + activity.payload.pull_request.head.repo.html_url +
+                            "/commit/" + activity.payload.pull_request.head.sha + '">' + activity.payload.pull_request.head.sha.substring(0, 10) +
+                            "</a> " + activity.payload.pull_request.title + "</blockquote>";
                             break;
                         case "PullRequestReviewCommentEvent":
                             break;
@@ -92,15 +105,27 @@ $(document).ready(function(){
                                 ii = 1,
                                 first = activity.payload.commits[0].sha.substring(0, 10),
                                 last = activity.payload.commits[count - 1].sha.substring(0, 10);
-                            if (1 === count) body += '<blockquote><a href="https://github.com/' + activity.repo.name + "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + "</a>&nbsp;" + (activity.payload.commits[ii - 1].message.length > 250 ? activity.payload.commits[ii - 1].message.substring(0, 249) + "..." : activity.payload.commits[ii - 1].message) + "</blockquote>";
-                            else if (count > 4) {
-                                for (; 5 >= ii;) body += '<blockquote><a href="https://github.com/' + activity.repo.name + "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + "</a>&nbsp;" + (activity.payload.commits[ii - 1].message.length > 250 ? activity.payload.commits[ii - 1].message.substring(0, 249) + "..." : activity.payload.commits[ii - 1].message) + "</blockquote>", ii++;
-                                body += '<a target="_blank" href="https://github.com/' + activity.repo.name + "/compare/" + first + "..." + last + '">compare these commits and ' + (count - 5) + " others &raquo;</a>"
-                            } else {
-                                for (; count >= ii;) body += '<blockquote><a href="https://github.com/' + activity.repo.name + "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + "</a>&nbsp;" + (activity.payload.commits[ii - 1].message.length > 250 ? activity.payload.commits[ii - 1].message.substring(0, 249) + "..." : activity.payload.commits[ii - 1].message) + "</blockquote>", ii++;
-                                body += '<a target="_blank" href="https://github.com/' + activity.repo.name + "/compare/" + first + "..." + last + '">compare these commits &raquo;</a>'
+                            if (count == 1){
+                                 body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
+                                "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
+                                "</a> " + truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>";
                             }
-                            show = user +" pushed " + count + " " + commit + ' to <a href="https://github.com/' + activity.repo.name + "/tree/" + ref + '">' + ref + "</a> at " + repo + "<br>" + body;
+                            else if (count > 4) {
+                                for (; 5 >= ii;) body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
+                                "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
+                                "</a> " + truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>", ii++;
+                                body += '<a target="_blank" href="https://github.com/' + activity.repo.name + "/compare/" + first + "..." +
+                                        last + '">compare these commits and ' + (count - 5) + " others &raquo;</a>"
+                            } else {
+                                for (; count >= ii;) body += '<blockquote><a href="https://github.com/' + activity.repo.name + "/commit/" +
+                                activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + "</a> " +
+                                truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>", ii++;
+
+                                body += '<a target="_blank" href="https://github.com/' + activity.repo.name + "/compare/" + first + "..." +
+                                last + '">compare these commits &raquo;</a>'
+                            }
+                            show = user +" pushed " + count + " " + commit + ' to <a href="https://github.com/' + activity.repo.name +
+                                "/tree/" + ref + '">' + ref + "</a> at " + repo + "<br>" + body;
                             break;
                         case "ReleaseEvent":
                             show = user + ' released <a target="_blank" href="' + activity.payload.release.zipball_url +
@@ -136,7 +161,16 @@ $(document).ready(function(){
                     client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a',
                     sort: 'updated: asc',
                     per_page: 6
-                }
+                },
+                beforeSend: function(){
+                    $('#repos').html(`<div class="progress" id="loader3">
+                        <div class="indeterminate"></div>
+                    </div>`
+                )
+                },
+                complete: function() {
+                    $('#loader3').hide();
+                },
             }).done(function(repos){
                 //console.log(repos);
                 $.each(repos, function(index, repo){
