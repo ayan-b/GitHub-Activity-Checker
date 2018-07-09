@@ -10,9 +10,53 @@ $(document).ready(function(){
                 client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
             }, 
             beforeSend: function(){
-                $('#profile').html(`<div class="progress" id="loader1">
-                    <div class="indeterminate"></div>
-                </div>`
+                $('#profile').html(`
+                <div class="container" id="loader1">
+                <center><h4>Fectching data from GitHub API</h4></center>
+                <center>
+                <div class="preloader-wrapper big active" id="loader1">
+                <div class="spinner-layer spinner-blue">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-red">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-yellow">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-green">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+              </center>
+              </div>`
             )
             },
             complete: function() {
@@ -27,9 +71,52 @@ $(document).ready(function(){
                     client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
                 },
                 beforeSend: function(){
-                    $('#activities').html(`<div class="progress" id="loader2">
-                        <div class="indeterminate"></div>
-                    </div>`
+                    $('#activities').html(`<div class="container" id="loader1">
+                    <center><h4>Fectching data from GitHub API</h4></center>
+                    <center>
+                    <div class="preloader-wrapper big active" id="loader1">
+                    <div class="spinner-layer spinner-blue">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+              
+                    <div class="spinner-layer spinner-red">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+              
+                    <div class="spinner-layer spinner-yellow">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+              
+                    <div class="spinner-layer spinner-green">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                  </div>
+                  </center>
+                  </div>`
                 )
                 },
                 complete: function() {
@@ -163,9 +250,52 @@ $(document).ready(function(){
                     per_page: 6
                 },
                 beforeSend: function(){
-                    $('#repos').html(`<div class="progress" id="loader3">
-                        <div class="indeterminate"></div>
-                    </div>`
+                    $('#repos').html(`<div class="container" id="loader1">
+                    <center><h4>Fectching data from GitHub API</h4></center>
+                    <center>
+                    <div class="preloader-wrapper big active" id="loader1">
+                    <div class="spinner-layer spinner-blue">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+              
+                    <div class="spinner-layer spinner-red">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+              
+                    <div class="spinner-layer spinner-yellow">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+              
+                    <div class="spinner-layer spinner-green">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                  </div>
+                  </center>
+                  </div>`
                 )
                 },
                 complete: function() {
