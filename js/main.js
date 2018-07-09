@@ -12,7 +12,7 @@ $(document).ready(function(){
             beforeSend: function(){
                 $('#profile').html(`
                 <div class="container" id="loader1">
-                <center><h4>Fectching data from GitHub API</h4></center>
+                <center><h4>Fetching data from GitHub API</h4></center>
                 <center>
                 <div class="preloader-wrapper big active" id="loader1">
                 <div class="spinner-layer spinner-blue">
@@ -72,7 +72,7 @@ $(document).ready(function(){
                 },
                 beforeSend: function(){
                     $('#activities').html(`<div class="container" id="loader1">
-                    <center><h4>Fectching data from GitHub API</h4></center>
+                    <center><h4>Fetching data from GitHub API</h4></center>
                     <center>
                     <div class="preloader-wrapper big active" id="loader1">
                     <div class="spinner-layer spinner-blue">
@@ -251,7 +251,7 @@ $(document).ready(function(){
                 },
                 beforeSend: function(){
                     $('#repos').html(`<div class="container" id="loader1">
-                    <center><h4>Fectching data from GitHub API</h4></center>
+                    <center><h4>Fetching data from GitHub API</h4></center>
                     <center>
                     <div class="preloader-wrapper big active" id="loader1">
                     <div class="spinner-layer spinner-blue">
