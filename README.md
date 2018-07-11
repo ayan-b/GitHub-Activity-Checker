@@ -1,1 +1,1 @@
-https://ayan-b.github.io/s/gh.html
+https://git.io/ghact

@@ -1,4 +1,48 @@
 $(document).ready(function(){
+    let loader = `<center><h4>Fetching data from GitHub API</h4>
+    <div class="preloader-wrapper big active" id="loader1">
+    <div class="spinner-layer spinner-blue">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <div class="spinner-layer spinner-red">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <div class="spinner-layer spinner-yellow">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <div class="spinner-layer spinner-green">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+  </center>
+  </div>`
     $('#searchUser').on('keyup', function(e){
         let username = e.target.value;
 
@@ -11,52 +55,8 @@ $(document).ready(function(){
             }, 
             beforeSend: function(){
                 $('#profile').html(`
-                <div class="container" id="loader1">
-                <center><h4>Fetching data from GitHub API</h4></center>
-                <center>
-                <div class="preloader-wrapper big active" id="loader1">
-                <div class="spinner-layer spinner-blue">
-                  <div class="circle-clipper left">
-                    <div class="circle"></div>
-                  </div><div class="gap-patch">
-                    <div class="circle"></div>
-                  </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                  </div>
-                </div>
-          
-                <div class="spinner-layer spinner-red">
-                  <div class="circle-clipper left">
-                    <div class="circle"></div>
-                  </div><div class="gap-patch">
-                    <div class="circle"></div>
-                  </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                  </div>
-                </div>
-          
-                <div class="spinner-layer spinner-yellow">
-                  <div class="circle-clipper left">
-                    <div class="circle"></div>
-                  </div><div class="gap-patch">
-                    <div class="circle"></div>
-                  </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                  </div>
-                </div>
-          
-                <div class="spinner-layer spinner-green">
-                  <div class="circle-clipper left">
-                    <div class="circle"></div>
-                  </div><div class="gap-patch">
-                    <div class="circle"></div>
-                  </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                  </div>
-                </div>
-              </div>
-              </center>
-              </div>`
+                <div class="container" id="loader1">` + 
+                loader
             )
             },
             complete: function() {
@@ -71,52 +71,7 @@ $(document).ready(function(){
                     client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
                 },
                 beforeSend: function(){
-                    $('#activities').html(`<div class="container" id="loader1">
-                    <center><h4>Fetching data from GitHub API</h4></center>
-                    <center>
-                    <div class="preloader-wrapper big active" id="loader1">
-                    <div class="spinner-layer spinner-blue">
-                      <div class="circle-clipper left">
-                        <div class="circle"></div>
-                      </div><div class="gap-patch">
-                        <div class="circle"></div>
-                      </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                      </div>
-                    </div>
-              
-                    <div class="spinner-layer spinner-red">
-                      <div class="circle-clipper left">
-                        <div class="circle"></div>
-                      </div><div class="gap-patch">
-                        <div class="circle"></div>
-                      </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                      </div>
-                    </div>
-              
-                    <div class="spinner-layer spinner-yellow">
-                      <div class="circle-clipper left">
-                        <div class="circle"></div>
-                      </div><div class="gap-patch">
-                        <div class="circle"></div>
-                      </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                      </div>
-                    </div>
-              
-                    <div class="spinner-layer spinner-green">
-                      <div class="circle-clipper left">
-                        <div class="circle"></div>
-                      </div><div class="gap-patch">
-                        <div class="circle"></div>
-                      </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                      </div>
-                    </div>
-                  </div>
-                  </center>
-                  </div>`
+                    $('#activities').html(`<div class="container" id="loader2">` + loader                    
                 )
                 },
                 complete: function() {
@@ -250,52 +205,7 @@ $(document).ready(function(){
                     per_page: 6
                 },
                 beforeSend: function(){
-                    $('#repos').html(`<div class="container" id="loader1">
-                    <center><h4>Fetching data from GitHub API</h4></center>
-                    <center>
-                    <div class="preloader-wrapper big active" id="loader1">
-                    <div class="spinner-layer spinner-blue">
-                      <div class="circle-clipper left">
-                        <div class="circle"></div>
-                      </div><div class="gap-patch">
-                        <div class="circle"></div>
-                      </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                      </div>
-                    </div>
-              
-                    <div class="spinner-layer spinner-red">
-                      <div class="circle-clipper left">
-                        <div class="circle"></div>
-                      </div><div class="gap-patch">
-                        <div class="circle"></div>
-                      </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                      </div>
-                    </div>
-              
-                    <div class="spinner-layer spinner-yellow">
-                      <div class="circle-clipper left">
-                        <div class="circle"></div>
-                      </div><div class="gap-patch">
-                        <div class="circle"></div>
-                      </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                      </div>
-                    </div>
-              
-                    <div class="spinner-layer spinner-green">
-                      <div class="circle-clipper left">
-                        <div class="circle"></div>
-                      </div><div class="gap-patch">
-                        <div class="circle"></div>
-                      </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                      </div>
-                    </div>
-                  </div>
-                  </center>
-                  </div>`
+                    $('#repos').html(`<div class="container" id="loader3">` + loader
                 )
                 },
                 complete: function() {
