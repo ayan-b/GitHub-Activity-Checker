@@ -1,46 +1,6 @@
 $(document).ready(function(){
     let loader = `<center><h4>Fetching data from GitHub API</h4>
-    <div class="preloader-wrapper big active" id="loader1">
-    <div class="spinner-layer spinner-blue">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-
-    <div class="spinner-layer spinner-red">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-
-    <div class="spinner-layer spinner-yellow">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-
-    <div class="spinner-layer spinner-green">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-  </div>
+    <img src="./static/images/octocat-spinner-64.gif">
   </center>
   </div>`
     $('#searchUser').on('keyup', function(e){
@@ -55,8 +15,7 @@ $(document).ready(function(){
             }, 
             beforeSend: function(){
                 $('#profile').html(`
-                <div class="container" id="loader1">` + 
-                loader
+                <div class="container" id="loader1">`+loader 
             )
             },
             complete: function() {
