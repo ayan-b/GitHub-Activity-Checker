@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    let loader = `<center><h4>Fetching data from GitHub API</h4>
+    <img src="./static/images/octocat-spinner-64.gif">
+  </center>
+  </div>`
     $('#searchUser').on('keyup', function(e){
         let username = e.target.value;
 
@@ -10,9 +14,8 @@ $(document).ready(function(){
                 client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
             }, 
             beforeSend: function(){
-                $('#profile').html(`<div class="progress" id="loader1">
-                    <div class="indeterminate"></div>
-                </div>`
+                $('#profile').html(`
+                <div class="container" id="loader1">`+loader 
             )
             },
             complete: function() {
@@ -27,9 +30,7 @@ $(document).ready(function(){
                     client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
                 },
                 beforeSend: function(){
-                    $('#activities').html(`<div class="progress" id="loader2">
-                        <div class="indeterminate"></div>
-                    </div>`
+                    $('#activities').html(`<div class="container" id="loader2">` + loader                    
                 )
                 },
                 complete: function() {
@@ -163,9 +164,7 @@ $(document).ready(function(){
                     per_page: 6
                 },
                 beforeSend: function(){
-                    $('#repos').html(`<div class="progress" id="loader3">
-                        <div class="indeterminate"></div>
-                    </div>`
+                    $('#repos').html(`<div class="container" id="loader3">` + loader
                 )
                 },
                 complete: function() {
