@@ -51,14 +51,14 @@ $(document).ready(function(){
                             ' at ' + repo + '<blockquote>' + activity.comment.body;
                             break;
                         case "CreateEvent":
-                            var type = activity.payload.ref_type;
+                            let type = activity.payload.ref_type;
                             if (type == "branch" || type == "tag") 
                                 show = user + " created " + type + " " + activity.payload.ref + " at " + repo + "<br/>";
                             else
                                 show = user + " created " + type + " " + " at " + repo + "<br/>";
                             break;
                         case "DeleteEvent":
-                            var ref = activity.payload.ref,
+                            let ref = activity.payload.ref,
                                 ref_type = activity.payload.ref_type;
                             show = user + " deleted " + ref_type + " " + ref + " at " + repo + "<br>";
                             break;
@@ -69,14 +69,14 @@ $(document).ready(function(){
                         case "GollumEvent":
                             break;
                         case "IssueCommentEvent":
-                            var converter = new showdown.Converter();
-                            var body = truncate (activity.payload.issue.body, 250);
+                            let converter = new showdown.Converter();
+                            let body = truncate (activity.payload.issue.body, 250);
                             body = converter.makeHtml(body);
                             show = user + " commented on issue: " + repo + ' / <a href="' + activity.payload.issue.html_url + '">' + 
                                     activity.payload.issue.title + "</a><br/><blockquote>" + body + "</blockquote>";
                             break;
                         case "IssuesEvent":
-                            var converter = new showdown.Converter(),
+                            let converter = new showdown.Converter(),
                             action = activity.payload.action,
                             body = truncate(activity.payload.issue.body, 250);
                             body = converter.makeHtml(body);
@@ -99,7 +99,7 @@ $(document).ready(function(){
                         case "PullRequestReviewCommentEvent":
                             break;
                         case "PushEvent":
-                            var ref = activity.payload.ref.replace(/^.*\/(.*)$/, "$1"),
+                            let ref = activity.payload.ref.replace(/^.*\/(.*)$/, "$1"),
                                 body = "",
                                 count = activity.payload.commits.length,
                                 commit = 1 === count ? "commit" : "commits",
@@ -256,7 +256,7 @@ $(document).ready(function(){
 
 $(document).ready(function() {
 
-	var btnTopHide = '.ui-btn-top-hide';
+	let btnTopHide = '.ui-btn-top-hide';
 
 	$(document).on('click', btnTopHide, function(evt) {
 		evt.preventDefault();
@@ -287,24 +287,24 @@ function getDifference(milliseconds){
         function numberEnding(number) {
           return (number > 1) ? 's ago' : ' ago';
         }
-        var temp = Math.floor(milliseconds / 1000);
+        let temp = Math.floor(milliseconds / 1000);
       
-        var years = Math.floor(temp / 31536000);
+        let years = Math.floor(temp / 31536000);
         if (years) return years + ' year' + numberEnding(years);
       
-        var months = Math.floor((temp %= 31536000) / 2592000);
+        let months = Math.floor((temp %= 31536000) / 2592000);
         if (months) return months + ' month' + numberEnding(months);
       
-        var days = Math.floor((temp %= 2592000) / 86400);
+        let days = Math.floor((temp %= 2592000) / 86400);
         if (days) return days + ' day' + numberEnding(days);
       
-        var hours = Math.floor((temp %= 86400) / 3600);
+        let hours = Math.floor((temp %= 86400) / 3600);
         if (hours) return 'about ' + hours + ' hour' + numberEnding(hours);
       
-        var minutes = Math.floor((temp %= 3600) / 60);
+        let minutes = Math.floor((temp %= 3600) / 60);
         if (minutes) return minutes + ' minute' + numberEnding(minutes);
       
-        var seconds = temp % 60;
+        let seconds = temp % 60;
         if (seconds) return seconds + ' second' + numberEnding(seconds);
       
         return 'just now';
