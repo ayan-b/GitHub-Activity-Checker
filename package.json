@@ -1,0 +1,23 @@
+{
+  "name": "github-activity-checker",
+  "version": "1.0.0",
+  "description": "> Check your public activity on GitHub!",
+  "scripts": {
+    "lint": "eslint js/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayan-b/GitHub-Activity-Checker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ayan-b/GitHub-Activity-Checker/issues"
+  },
+  "homepage": "https://github.com/ayan-b/GitHub-Activity-Checker#readme",
+  "devDependencies": {
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
