@@ -1,126 +1,130 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      
-      <title>GitHub Activity Checker</title>
-      <meta charset="UTF-8">
-      <meta http-equiv="content-type" content="text/html;" charset="UTF-8">
-      <meta name = "description" content="Check your activity on GitHub">
-      <meta name = "keywords" content="GitHub, Activity, Repositories, GitHub-Profile">
-      <meta name = "author" content="Ayan Banerjee">
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="./static/materialize/css/materialize.min.css"  media="screen,projection"/>
-      <link rel="icon" type="image/png" href="static/images/favicon.png">
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <link rel="stylesheet" href="css/style.css">
-      <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
-      <link rel="stylesheet" href="/static/octicons-7.3.0/package/build/build.css">
+<html>
 
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120952687-1"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+<head>
 
-        gtag('config', 'UA-120952687-1');
-      </script>
-    </head>
+  <title>GitHub Activity Checker</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="content-type" content="text/html;" charset="UTF-8">
+  <meta name="description" content="Check your activity on GitHub">
+  <meta name="keywords" content="GitHub, Activity, Repositories, GitHub-Profile">
+  <meta name="author" content="Ayan Banerjee">
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="icon" type="image/png" href="static/images/favicon.png">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/7.3.0/build.css">
 
-    <body>
-      <nav>
-        <div class="nav-wrapper">
-          <a href="#!" class="brand-logo center">GitHub Activity Checker</a>
-          <ul class="left hide-on-med-and-down">
-          </ul>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120952687-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-120952687-1');
+  </script>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center">GitHub Activity Checker</a>
+      <ul class="left hide-on-med-and-down">
+      </ul>
+    </div>
+  </nav>
+  <nav>
+    <div class="nav-wrapper teal">
+      <form>
+        <div class="input-field">
+          <input id="searchUser" type="search" placeholder="Enter GitHub username" required autofocus>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
         </div>
-      </nav>
-        <nav>
-            <div class="nav-wrapper teal">
-                <form>
-                <div class="input-field">
-                    <input id="searchUser" type="search" placeholder = "Enter GitHub username" required autofocus>
-                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
-                </div>
-                </form>
-            </div>
-        </nav>
-      <br> <br>
-      <div id="profile"></div>
-      <div class="fixed-action-btn left-button">
-        <a class="btn-floating btn-large purple hoverable modal-trigger tooltipped" data-delay="20" data-position="right" data-tooltip="Send a message" href="#modal1">
-          <i class="large material-icons">comment</i>
-        </a>
-      </div>
+      </form>
+    </div>
+  </nav>
+  <br> <br>
+  <div id="profile"></div>
+  <div class="fixed-action-btn left-button">
+    <a class="btn-floating btn-large purple hoverable modal-trigger tooltipped" data-delay="20" data-position="right"
+      data-tooltip="Send a message" href="#modal1">
+      <i class="large material-icons">comment</i>
+    </a>
+  </div>
 
-      <!-- Modal Structure -->
-      <div id="modal1" class="modal">
-        <div class="modal-content row">
-          <form id="gform" method="POST" class="col s12" data-email="example@email.net"
-          action="https://script.google.com/macros/s/AKfycbwD1R-uMUssKIAfiUDfkkZw-_zgeWK_lTUwinHfLizo3l2CUJ4/exec">
-            <!-- change the form action to your script url -->
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content row">
+      <form id="gform" method="POST" class="col s12" data-email="example@email.net" action="https://script.google.com/macros/s/AKfycbwD1R-uMUssKIAfiUDfkkZw-_zgeWK_lTUwinHfLizo3l2CUJ4/exec">
+        <!-- change the form action to your script url -->
 
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="name" type="text" class="validate" name="name" required>
-                <label for="name">Name</label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s12">
-                <textarea id="message" class="materialize-textarea" name="message" required></textarea>
-                <label for="message">Message</label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="email" type="email" class="validate" name="email" required>
-                <label for="email">Email</label>
-                <span id="email-invalid" style="display:none">
-                    Must be a valid email address</span>
-              </div>
-            </div>
-
-              <div class="modal-footer">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                  <i class="material-icons right">send</i>
-                </button>
-              </div>
-
-          </form>
-      
-          <div style="display:none;" id="thankyou_message" class="">
-            <h2 class=""> Thanks for submitting your response!<i class="material-icons medium brown-text darken-2">mood</i></h2>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="name" type="text" class="validate" name="name" required>
+            <label for="name">Name</label>
           </div>
-
         </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="message" class="materialize-textarea" name="message" required></textarea>
+            <label for="message">Message</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" name="email" required>
+            <label for="email">Email</label>
+            <span id="email-invalid" style="display:none">
+              Must be a valid email address</span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+
+      </form>
+
+      <div style="display:none;" id="thankyou_message" class="">
+        <h2 class=""> Thanks for submitting your response!<i class="material-icons medium brown-text darken-2">mood</i></h2>
       </div>
 
-      <div class="">
-        <a class="ui-btn-top-hide btn-floating btn-large waves-effect waves-light purple tooltipped hoverable" data-position="left" data-tooltip="Go to top" data-delay="20">
-          <i class="material-icons">arrow_upward</i></a>
-      </div>
-      <!--JavaScript at end of body for optimized loading-->
-      <script src = "./static/jquery-3.2.1.min.js"></script>
-      <script type="text/javascript" src="static/materialize/js/materialize.min.js"></script>
-      <script src = "js/main.js"></script>
-      <script data-cfasync="false" type="text/javascript" src="js/form-handler.js"></script>
-      <script type="text/javascript" src="static/showdown/dist/showdown.min.js"></script>
-      <script>
-      $(document).ready(function(){
-        $('.modal').modal();
-      });
+    </div>
+  </div>
 
-       $(document).ready(function(){
-        $('.tooltipped').tooltip();
-      });
-    </script>
-    </body>
-  </html>
-        
+  <div class="">
+    <a class="ui-btn-top-hide btn-floating btn-large waves-effect waves-light purple tooltipped hoverable"
+      data-position="left" data-tooltip="Go to top" data-delay="20">
+      <i class="material-icons">arrow_upward</i></a>
+  </div>
+  <!--JavaScript at end of body for optimized loading-->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/main.js"></script>
+  <script data-cfasync="false" type="text/javascript" src="js/form-handler.js"></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.modal').modal();
+    });
+
+    $(document).ready(function () {
+      $('.tooltipped').tooltip();
+    });
+  </script>
+</body>
+
+</html>
