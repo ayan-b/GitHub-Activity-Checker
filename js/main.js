@@ -44,6 +44,8 @@ $(document).ready(function(){
                     let date_diff = getDifference (new Date() - new Date(date_cr));
                     let event_type = activity.type;
                     let show = event_type;
+                    let body, action, type, ref;
+		    let converter = new showdown.Converter();
                     switch (event_type) {
                         case "CommitCommentEvent":
                             show = user + ' <a target = "_blank" href=' + 
@@ -51,14 +53,14 @@ $(document).ready(function(){
                             ' at ' + repo + '<blockquote>' + activity.comment.body;
                             break;
                         case "CreateEvent":
-                            let type = activity.payload.ref_type;
+                            type = activity.payload.ref_type;
                             if (type == "branch" || type == "tag") 
                                 show = user + " created " + type + " " + activity.payload.ref + " at " + repo + "<br/>";
                             else
                                 show = user + " created " + type + " " + " at " + repo + "<br/>";
                             break;
                         case "DeleteEvent":
-                            let ref = activity.payload.ref,
+                            ref = activity.payload.ref,
                                 ref_type = activity.payload.ref_type;
                             show = user + " deleted " + ref_type + " " + ref + " at " + repo + "<br>";
                             break;
@@ -69,14 +71,12 @@ $(document).ready(function(){
                         case "GollumEvent":
                             break;
                         case "IssueCommentEvent":
-                            let converter = new showdown.Converter();
-                            let body = truncate (activity.payload.issue.body, 250);
+                            body = truncate (activity.payload.issue.body, 250);
                             body = converter.makeHtml(body);
                             show = user + " commented on issue: " + repo + ' / <a href="' + activity.payload.issue.html_url + '">' + 
                                     activity.payload.issue.title + "</a><br/><blockquote>" + body + "</blockquote>";
                             break;
                         case "IssuesEvent":
-                            let converter = new showdown.Converter(),
                             action = activity.payload.action,
                             body = truncate(activity.payload.issue.body, 250);
                             body = converter.makeHtml(body);
@@ -99,19 +99,18 @@ $(document).ready(function(){
                         case "PullRequestReviewCommentEvent":
                             break;
                         case "PushEvent":
-                            let ref = activity.payload.ref.replace(/^.*\/(.*)$/, "$1"),
-                                body = "",
-                                count = activity.payload.commits.length,
-                                commit = 1 === count ? "commit" : "commits",
-                                ii = 1,
-                                first = activity.payload.commits[0].sha.substring(0, 10),
-                                last = activity.payload.commits[count - 1].sha.substring(0, 10);
+                            ref = activity.payload.ref.replace(/^.*\/(.*)$/, "$1"),
+                            body = "",
+                            count = activity.payload.commits.length,
+                            commit = 1 === count ? "commit" : "commits",
+                            ii = 1,
+                            first = activity.payload.commits[0].sha.substring(0, 10),
+                            last = activity.payload.commits[count - 1].sha.substring(0, 10);
                             if (count == 1){
                                  body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
                                 "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
                                 "</a> " + truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>";
-                            }
-                            else if (count > 4) {
+                            } else if (count > 4) {
                                 for (; 5 >= ii;) body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
                                 "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
                                 "</a> " + truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>", ii++;
