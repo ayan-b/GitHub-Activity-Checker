@@ -96,7 +96,21 @@ $(document).ready(function(){
                             "/commit/" + activity.payload.pull_request.head.sha + '">' + activity.payload.pull_request.head.sha.substring(0, 10) +
                             "</a> " + activity.payload.pull_request.title + "</blockquote>";
                             break;
+                        case "PullRequestReviewEvent":
+                            action = activity.payload.action;
+                            url = activity.payload.pull_request.html_url;
+                            body = activity.payload.pull_request.title;
+                            show = user + ' ' + action + ' review on pull request:<a target="_blank" href='
+                                   + url + '</a> ' + body;
+                            break;
                         case "PullRequestReviewCommentEvent":
+                            action = activity.payload.action;
+                            url = activity.payload.pull_request.html_url;
+                            diff = activity.payload.comment.diff_hunk;
+                            body = '<code>' + diff + '</code><br>' + activity.payload.comment.body;
+                            show = user + ' ' + action + ' review on pull request:' + '<a target="_blank" href=' +
+                                    url + '> ' + activity.payload.pull_request.title + '</a>' + '<blockquote>' +
+                                    body + '</blockquote>';
                             break;
                         case "PushEvent":
                             ref = activity.payload.ref.replace(/^.*\/(.*)$/, "$1"),
