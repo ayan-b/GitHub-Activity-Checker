@@ -3,6 +3,6 @@ steps:
   displayName: 'Use Python 3.x'
 - script: |
     echo "skipping tests"
-    pip install coala
+    pip install -r test-requirements.txt 
     python3 -m coala --non-interactive
   displayName: 'Linting Check'
