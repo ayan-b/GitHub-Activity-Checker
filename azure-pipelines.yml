@@ -1,0 +1,8 @@
+steps:
+- task: UsePythonVersion@0
+  displayName: 'Use Python 3.x'
+- script: |
+    pip install -r requirements.txt
+    echo "skipping tests"
+    coala --non-interactive
+  displayName: 'Linting Check'
