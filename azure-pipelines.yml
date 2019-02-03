@@ -4,5 +4,5 @@ steps:
 - script: |
     pip install -r requirements.txt
     echo "skipping tests"
-    coala --non-interactive
+    python -m coala --non-interactive
   displayName: 'Linting Check'
