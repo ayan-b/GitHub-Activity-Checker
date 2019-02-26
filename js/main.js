@@ -45,7 +45,7 @@ $(document).ready(function(){
                     let event_type = activity.type;
                     let show = event_type;
                     let body, action, type, ref;
-		    let converter = new showdown.Converter();
+		            let converter = new showdown.Converter();
                     switch (event_type) {
                         case "CommitCommentEvent":
                             show = user + ' <a target = "_blank" href=' + 
@@ -121,19 +121,21 @@ $(document).ready(function(){
                             first = activity.payload.commits[0].sha.substring(0, 10),
                             last = activity.payload.commits[count - 1].sha.substring(0, 10);
                             if (count == 1){
-                                 body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
+                                body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
                                 "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
                                 "</a> " + truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>";
                             } else if (count > 4) {
-                                for (; 5 >= ii;) body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
-                                "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
-                                "</a> " + truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>", ii++;
+                                for (; 5 >= ii;) 
+                                    body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
+                                    "/commit/" + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
+                                    "</a> " + truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>", ii++;
                                 body += '<a target="_blank" href="https://github.com/' + activity.repo.name + "/compare/" + first + "..." +
-                                        last + '">compare these commits and ' + (count - 5) + " others &raquo;</a>"
+                                last + '">compare these commits and ' + (count - 5) + " others &raquo;</a>"
                             } else {
-                                for (; count >= ii;) body += '<blockquote><a href="https://github.com/' + activity.repo.name + "/commit/" +
-                                activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + "</a> " +
-                                truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>", ii++;
+                                for (; count >= ii;) 
+                                    body += '<blockquote><a href="https://github.com/' + activity.repo.name + "/commit/" +
+                                    activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + "</a> " +
+                                    truncate(activity.payload.commits[ii - 1].message, 250) + "</blockquote>", ii++;
 
                                 body += '<a target="_blank" href="https://github.com/' + activity.repo.name + "/compare/" + first + "..." +
                                 last + '">compare these commits &raquo;</a>'
@@ -184,7 +186,6 @@ $(document).ready(function(){
                     $('#loader3').hide();
                 },
             }).done(function(repos){
-                //console.log(repos);
                 $.each(repos, function(index, repo){
                     let desc = repo.desciption;
                     if (desc==null)
@@ -291,34 +292,35 @@ function truncate (str, len){
     if (str.length > len){
         return (str.substring(0, len-1) + "...");
     }
-return str;
+    return str;
+}
+
+function numberEnding(number) {
+    return (number > 1) ? 's ago' : ' ago';
 }
 
 function getDifference(milliseconds){
-        'use strict';
-      
-        function numberEnding(number) {
-          return (number > 1) ? 's ago' : ' ago';
-        }
-        let temp = Math.floor(milliseconds / 1000);
-      
-        let years = Math.floor(temp / 31536000);
-        if (years) return years + ' year' + numberEnding(years);
-      
-        let months = Math.floor((temp %= 31536000) / 2592000);
-        if (months) return months + ' month' + numberEnding(months);
-      
-        let days = Math.floor((temp %= 2592000) / 86400);
-        if (days) return days + ' day' + numberEnding(days);
-      
-        let hours = Math.floor((temp %= 86400) / 3600);
-        if (hours) return 'about ' + hours + ' hour' + numberEnding(hours);
-      
-        let minutes = Math.floor((temp %= 3600) / 60);
-        if (minutes) return minutes + ' minute' + numberEnding(minutes);
-      
-        let seconds = temp % 60;
-        if (seconds) return seconds + ' second' + numberEnding(seconds);
-      
-        return 'just now';
-    }
+    'use strict';
+    
+    let temp = Math.floor(milliseconds / 1000);
+    
+    let years = Math.floor(temp / 31536000);
+    if (years) return years + ' year' + numberEnding(years);
+    
+    let months = Math.floor((temp %= 31536000) / 2592000);
+    if (months) return months + ' month' + numberEnding(months);
+    
+    let days = Math.floor((temp %= 2592000) / 86400);
+    if (days) return days + ' day' + numberEnding(days);
+    
+    let hours = Math.floor((temp %= 86400) / 3600);
+    if (hours) return 'about ' + hours + ' hour' + numberEnding(hours);
+    
+    let minutes = Math.floor((temp %= 3600) / 60);
+    if (minutes) return minutes + ' minute' + numberEnding(minutes);
+    
+    let seconds = temp % 60;
+    if (seconds) return seconds + ' second' + numberEnding(seconds);
+    
+    return 'just now';
+}
