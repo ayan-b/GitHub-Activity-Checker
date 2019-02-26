@@ -55,3 +55,9 @@ function getDifference(milliseconds){
     
     return 'just now';
 }
+
+module.exports = {
+    truncate,
+    numberEnding,
+    getDifference,
+};
