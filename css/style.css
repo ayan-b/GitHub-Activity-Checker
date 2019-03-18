@@ -32,6 +32,12 @@ body {
   bottom: 20px;
  }
 
+ .right-button{
+   right: 10px;
+   left: auto;
+   top: 1px;
+  }
+
  .ui-btn-top-hide {
 	position: fixed;
 	bottom: 20px;
