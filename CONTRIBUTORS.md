@@ -10,4 +10,4 @@ _Alplhabetically:_
 - [Monsij Biswal](https://github.com/monsij)
 - [Soumya Ranjan Mondal](https://github.com/sasthabhoot)
 - [Vito](https://github.com/xit4)
-  [Big](https://github.com/bigchenla)
+- [Big](https://github.com/bigchenla)
