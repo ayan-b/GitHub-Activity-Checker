@@ -259,6 +259,7 @@ $(document).ready(function(){
 
 
 $(document).ready(function() {
+    $('#searchUser').keyup();
 
 	let btnTopHide = '.ui-btn-top-hide';
 
