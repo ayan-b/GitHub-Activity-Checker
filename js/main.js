@@ -175,7 +175,7 @@ $(document).ready(function(){
                     let desc = repo.desciption;
                     if (desc==null)
                         desc = "";
-                    let lang = repo.language.toLowerCase();
+                    let lang = (repo.language || '').toLowerCase();
                     switch (lang){
                         case "html":
                             lang = "html5";
@@ -197,7 +197,7 @@ $(document).ready(function(){
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}/network/members" class="collection-item"><span class="new badge" data-badge-caption="">${repo.forks_count}</span>Forks</a>
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}/watchers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.watchers_count}</span>Watchers</a>
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}/stargazers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.stargazers_count}</span>Stars</a>
-                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="badge"><i class="devicon-${lang}-plain colored"></i>${repo.language}</span>Language</a>
+                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="badge">${lang && `<i class="devicon-${lang}-plain colored"></i>`}${repo.language || '-'}</span>Language</a>
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.created_at.substring(0,10)}</span>Created</a>
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.updated_at.substring(0,10)}</span>Last Updated</a>
                                     </div>
