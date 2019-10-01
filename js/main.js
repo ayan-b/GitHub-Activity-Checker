@@ -213,7 +213,7 @@ $(document).ready(function(){
             });
             $('#profile').html(`
             <div class="col s12 m7">
-                <h4 class="header"><i class="small material-icons">account_box</i>${user.name}</h4>
+                <h4 class="header"><i class="small material-icons">account_box</i>${user.name || '-'}</h4>
                 <div class="card hoverable horizontal">
                 <div id="details" class="row container">
                 <div class="card-image col s12 m5">
@@ -222,9 +222,9 @@ $(document).ready(function(){
                 <div class="card-stacked col s12 m7">
                     <div class="card-content">
                     <div class="collection">
-                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.bio}</span>Bio</a>
-                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.company}</span>Company</a>
-                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.location}</span>Location</a>
+                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.bio || '-'}</span>Bio</a>
+                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.company || '-'}</span>Company</a>
+                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.location || '-'}</span>Location</a>
                     <a target = "_blank" href="${user.html_url}?tab=repositories" class="collection-item"><span class="new badge" data-badge-caption="">${user.public_repos}</span>Repos</a>
                     <a target = "_blank" href="https://gist.github.com/${user.login}" class="collection-item"><span class="new badge" data-badge-caption="">${user.public_gists}</span>Gists</a>
                     <a target = "_blank" href="${user.html_url}?tab=followers" class="collection-item"><span class="new badge" data-badge-caption="">${user.followers}</span>Followers</a>
