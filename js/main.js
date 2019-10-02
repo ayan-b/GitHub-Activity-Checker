@@ -4,7 +4,12 @@ $(document).ready(function(){
   </center>
   </div>`
     $('#searchUser').on('keyup', function(e){
-        let username = e.target.value;
+        let username = e.target.value.trim();
+
+        if (!username) {
+            $('#profile').html('');
+            return false;
+        }
 
         // Make request to GitHub
         $.ajax({
@@ -254,6 +259,7 @@ $(document).ready(function(){
 
 
 $(document).ready(function() {
+    $('#searchUser').keyup();
 
 	let btnTopHide = '.ui-btn-top-hide';
 
