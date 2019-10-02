@@ -265,7 +265,7 @@ $(document).ready(function() {
 
 	$(document).on('click', btnTopHide, function(evt) {
 		evt.preventDefault();
-		$('body').velocity('scroll', {duration: 1000, easing: 'quart'});
+		$('html, body').animate({ scrollTop: 0 }, "slow");
 	});
 
 	$(window).on('scroll', function(){
