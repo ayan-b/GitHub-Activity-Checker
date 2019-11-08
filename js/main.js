@@ -277,6 +277,10 @@ $(document).ready(function() {
 		$('body').velocity('scroll', {duration: 1000, easing: 'quart'});
 	});
 
+	$('.input-field').on('click', 'i', function() {
+		$('#searchUser').val('').keyup();
+	});
+
 	$(window).on('scroll', function(){
 		if ($(this).scrollTop() > 100) {
 			$(btnTopHide).fadeIn();
