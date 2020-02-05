@@ -5,23 +5,17 @@ $(document).ready(function(){
   </div>`
     $('#searchUser').on('keyup', function(e){
         let username = e.target.value;
-
         // Make request to GitHub
         $.ajax({
             url: 'https://api.github.com/users/' + username,
-            data:{
-                client_id:'f7a2c629ce3110fbf13d',
-                client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
-            }, 
             beforeSend: function(){
                 $('#profile').html(`
-                <div class="container" id="loader1">`+loader 
-            )
+                    <div class="container" id="loader1">`+loader 
+                )
             },
             complete: function() {
                 $('#loader1').hide();
             },
-
         }).done(function(user){
             $.ajax({
                 url : 'https://api.github.com/users/' + username + '/events',

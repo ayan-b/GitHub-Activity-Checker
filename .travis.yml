@@ -1,15 +1,23 @@
-sudo: true
-language: node_js
-node_js:
-  - '8'
-cache:
-  directories:
-    - node_modules
-before_install:
-  - npm update
-install:
-  - npm install -g jest codecov
-script:
-  - npm run test
-after_success:
-  - codecov
+matrix:
+  include:
+    - language: node_js
+      node_js:
+        - '8'
+      cache:
+        directories:
+          - node_modules
+      before_install:
+        - npm update
+      install:
+        - npm install -g jest
+      script:
+        - npm run test
+      after_success:
+        - codecov
+
+    - language: node_js
+      install:
+        - npm install eslint -g
+      script:
+        - eslint js/** tests/**
+      allow_failures: true
