@@ -8,12 +8,15 @@ branches:
   only:
     - gh-pages
     - /.*/
+
+before_script:
+  - npm install
+
 jobs:
   allow_failures:
-    - install:
-      - npm install eslint -g
-    script:
+    - script:
       - eslint js/** tests/**
+
   include:
       before_install:
         - npm update
@@ -24,7 +27,3 @@ jobs:
       after_success:
         - codecov
 
-    - install:
-        - npm install eslint -g
-      script:
-        - eslint js/** tests/**
