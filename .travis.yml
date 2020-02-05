@@ -1,3 +1,6 @@
+branches:
+  only:
+    - /.*/
 matrix:
   include:
     - language: node_js
