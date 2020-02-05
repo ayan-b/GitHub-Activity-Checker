@@ -1,7 +1,9 @@
 os: 'linux'
-language: node_js
-  node_js:
-    - '12'
+notifications:
+  email: false
+language: 'node_js'
+node_js:
+  - 12
 branches:
   only:
     - gh-pages
@@ -13,13 +15,10 @@ jobs:
     script:
       - eslint js/** tests/**
   include:
-      cache:
-        directories:
-          - node_modules
       before_install:
         - npm update
       install:
-        - npm install -g jest
+        - npm install jest -g
       script:
         - npm run test
       after_success:
