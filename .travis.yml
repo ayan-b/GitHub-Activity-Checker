@@ -18,7 +18,7 @@ jobs:
       - eslint js/** tests/**
 
   include:
-      before_install:
+    - before_install:
         - npm update
       install:
         - npm install jest -g
@@ -26,4 +26,6 @@ jobs:
         - npm run test
       after_success:
         - codecov
-
+      
+    - script:
+      - eslint js/** tests/**
