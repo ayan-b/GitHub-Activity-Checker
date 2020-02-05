@@ -4,7 +4,13 @@ $(document).ready(function(){
   </center>
   </div>`
     $('#searchUser').on('keyup', function(e){
-        let username = e.target.value;
+        let username = e.target.value.trim();
+
+        if (!username) {
+            $('#profile').html('');
+            return false;
+        }
+
         // Make request to GitHub
         $.ajax({
             url: 'https://api.github.com/users/' + username,
@@ -19,10 +25,6 @@ $(document).ready(function(){
         }).done(function(user){
             $.ajax({
                 url : 'https://api.github.com/users/' + username + '/events',
-                data: {
-                    client_id:'f7a2c629ce3110fbf13d',
-                    client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a'
-                },
                 beforeSend: function(){
                     $('#activities').html(`<div class="container" id="loader2">` + loader                    
                 )
@@ -184,7 +186,7 @@ $(document).ready(function(){
                     let desc = repo.desciption;
                     if (desc==null)
                         desc = "";
-                    let lang = repo.language.toLowerCase();
+                    let lang = (repo.language || '').toLowerCase();
                     switch (lang){
                         case "html":
                             lang = "html5";
@@ -206,7 +208,7 @@ $(document).ready(function(){
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}/network/members" class="collection-item"><span class="new badge" data-badge-caption="">${repo.forks_count}</span>Forks</a>
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}/watchers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.watchers_count}</span>Watchers</a>
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}/stargazers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.stargazers_count}</span>Stars</a>
-                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="badge"><i class="devicon-${lang}-plain colored"></i>${repo.language}</span>Language</a>
+                                        <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="badge">${lang && `<i class="devicon-${lang}-plain colored"></i>`}${repo.language || '-'}</span>Language</a>
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.created_at.substring(0,10)}</span>Created</a>
                                         <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.updated_at.substring(0,10)}</span>Last Updated</a>
                                     </div>
@@ -222,7 +224,7 @@ $(document).ready(function(){
             });
             $('#profile').html(`
             <div class="col s12 m7">
-                <h4 class="header"><i class="small material-icons">account_box</i>${user.name}</h4>
+                <h4 class="header"><i class="small material-icons">account_box</i>${user.name || '-'}</h4>
                 <div class="card hoverable horizontal">
                 <div id="details" class="row container">
                 <div class="card-image col s12 m5">
@@ -231,9 +233,9 @@ $(document).ready(function(){
                 <div class="card-stacked col s12 m7">
                     <div class="card-content">
                     <div class="collection">
-                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.bio}</span>Bio</a>
-                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.company}</span>Company</a>
-                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.location}</span>Location</a>
+                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.bio || '-'}</span>Bio</a>
+                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.company || '-'}</span>Company</a>
+                    <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.location || '-'}</span>Location</a>
                     <a target = "_blank" href="${user.html_url}?tab=repositories" class="collection-item"><span class="new badge" data-badge-caption="">${user.public_repos}</span>Repos</a>
                     <a target = "_blank" href="https://gist.github.com/${user.login}" class="collection-item"><span class="new badge" data-badge-caption="">${user.public_gists}</span>Gists</a>
                     <a target = "_blank" href="${user.html_url}?tab=followers" class="collection-item"><span class="new badge" data-badge-caption="">${user.followers}</span>Followers</a>
@@ -263,6 +265,7 @@ $(document).ready(function(){
 
 
 $(document).ready(function() {
+    $('#searchUser').keyup();
 
 	let btnTopHide = '.ui-btn-top-hide';
 
@@ -280,3 +283,40 @@ $(document).ready(function() {
     });
 
 });
+
+function truncate (str, len){
+
+    if (str.length > len){
+        return (str.substring(0, len-1) + "...");
+    }
+return str;
+}
+
+function getDifference(milliseconds){
+        'use strict';
+      
+        function numberEnding(number) {
+          return (number > 1) ? 's ago' : ' ago';
+        }
+        let temp = Math.floor(milliseconds / 1000);
+      
+        let years = Math.floor(temp / 31536000);
+        if (years) return years + ' year' + numberEnding(years);
+      
+        let months = Math.floor((temp %= 31536000) / 2592000);
+        if (months) return months + ' month' + numberEnding(months);
+      
+        let days = Math.floor((temp %= 2592000) / 86400);
+        if (days) return days + ' day' + numberEnding(days);
+      
+        let hours = Math.floor((temp %= 86400) / 3600);
+        if (hours) return 'about ' + hours + ' hour' + numberEnding(hours);
+      
+        let minutes = Math.floor((temp %= 3600) / 60);
+        if (minutes) return minutes + ' minute' + numberEnding(minutes);
+      
+        let seconds = temp % 60;
+        if (seconds) return seconds + ' second' + numberEnding(seconds);
+      
+        return 'just now';
+    }

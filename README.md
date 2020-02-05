@@ -1,4 +1,5 @@
 # GitHub Activity Checker
+
 > Check your public activity on GitHub!
 
 This is a simple Website that shows an user's recent public activity on GitHub 
