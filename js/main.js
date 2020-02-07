@@ -169,8 +169,6 @@ $(document).ready(function(){
             $.ajax({
                 url: 'https://api.github.com/users/' + username + '/repos',
                 data:{
-                    client_id:'f7a2c629ce3110fbf13d',
-                    client_secret:'bc3d989098f1595ad9864e1642975afa09b3b07a',
                     sort: 'updated: asc',
                     per_page: 6
                 },
