@@ -243,15 +243,15 @@ $(document).ready(function(){
           </div>
         </div>
       </div>
-			</div>
-			<div class="row container">
-				<h3>Recent Repos</h3>
-				<div id="repos"></div>
-			</div>
-			<div class="row container">
-				<h3>Activities</h3>
-				<div id="activities"></div>
-			</div>
+      </div>
+      <div class="row container">
+        <h3>Recent Repos</h3>
+        <div id="repos"></div>
+      </div>
+      <div class="row container">
+        <h3>Activities</h3>
+        <div id="activities"></div>
+      </div>
       `);
     });
   });
