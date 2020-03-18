@@ -42,8 +42,8 @@ $(document).ready(function(){
           switch (event_type) {
           case 'CommitCommentEvent':
             show = user + ' <a target = "_blank" href=' + 
-									activity.comment.html_url + '>commented on ' + activity.comment.commit_id.substring(0,10) +
-									' at ' + repo + '<blockquote>' + activity.comment.body;
+                  activity.comment.html_url + '>commented on ' + activity.comment.commit_id.substring(0,10) +
+                  ' at ' + repo + '<blockquote>' + activity.comment.body;
             break;
           case 'CreateEvent':
             type = activity.payload.ref_type;
@@ -59,7 +59,7 @@ $(document).ready(function(){
             break;
           case 'ForkEvent':
             show = user + ' forked ' + '<a target="_blank" href="https://github.com/' + 
-									activity.payload.forkee.full_name + '"> ' + activity.payload.forkee.full_name + '</a> from ' + repo + '<br>';
+                  activity.payload.forkee.full_name + '"> ' + activity.payload.forkee.full_name + '</a> from ' + repo + '<br>';
             break;
           case 'GollumEvent':
             break;
@@ -67,15 +67,15 @@ $(document).ready(function(){
             body = truncate (activity.payload.issue.body, 250);
             body = converter.makeHtml(body);
             show = user + ' commented on issue: ' + repo + ' / <a href="' + activity.payload.issue.html_url + '">' + 
-									activity.payload.issue.title + '</a><br/><blockquote>' + body + '</blockquote>';
+                  activity.payload.issue.title + '</a><br/><blockquote>' + body + '</blockquote>';
             break;
           case 'IssuesEvent':
             action = activity.payload.action,
             body = truncate(activity.payload.issue.body, 250);
             body = converter.makeHtml(body);
             show = user + ' ' + action + ' issue at ' + repo + '<a target="_blank" href="' + 
-									activity.payload.issue.html_url + '">' + ': ' + activity.payload.issue.title + 
-									'</a><blockquote>' + body + '</blockquote>';
+                  activity.payload.issue.html_url + '">' + ': ' + activity.payload.issue.title + 
+                  '</a><blockquote>' + body + '</blockquote>';
             break;
           case 'MemberEvent':
             break;
@@ -84,17 +84,17 @@ $(document).ready(function(){
             break;
           case 'PullRequestEvent':
             show = user + ' ' + activity.payload.action + ' a pull request:<a target="_blank" href="' +
-									activity.payload.pull_request.html_url + '">' + activity.repo.name + '/#' +
-									activity.payload.number + '</a><br/><blockquote><a href="' + activity.payload.pull_request.head.repo.html_url +
-									'/commit/' + activity.payload.pull_request.head.sha + '">' + activity.payload.pull_request.head.sha.substring(0, 10) +
-									'</a> ' + activity.payload.pull_request.title + '</blockquote>';
+                  activity.payload.pull_request.html_url + '">' + activity.repo.name + '/#' +
+                  activity.payload.number + '</a><br/><blockquote><a href="' + activity.payload.pull_request.head.repo.html_url +
+                  '/commit/' + activity.payload.pull_request.head.sha + '">' + activity.payload.pull_request.head.sha.substring(0, 10) +
+                  '</a> ' + activity.payload.pull_request.title + '</blockquote>';
             break;
           case 'PullRequestReviewEvent':
             action = activity.payload.action;
             url = activity.payload.pull_request.html_url;
             body = activity.payload.pull_request.title;
             show = user + ' ' + action + ' review on pull request:<a target="_blank" href='
-										+ url + '</a> ' + body;
+                    + url + '</a> ' + body;
             break;
           case 'PullRequestReviewCommentEvent':
             action = activity.payload.action;
@@ -102,8 +102,8 @@ $(document).ready(function(){
             diff = activity.payload.comment.diff_hunk;
             body = '<code>' + diff + '</code><br>' + activity.payload.comment.body;
             show = user + ' ' + action + ' review on pull request:' + '<a target="_blank" href=' +
-									url + '> ' + activity.payload.pull_request.title + '</a>' + '<blockquote>' +
-									body + '</blockquote>';
+                  url + '> ' + activity.payload.pull_request.title + '</a>' + '<blockquote>' +
+                  body + '</blockquote>';
             break;
           case 'PushEvent':
             ref = activity.payload.ref.replace(/^.*\/(.*)$/, '$1'),
@@ -115,32 +115,32 @@ $(document).ready(function(){
             last = activity.payload.commits[count - 1].sha.substring(0, 10);
             if (count == 1){
               body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
-											'/commit/' + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
-											'</a> ' + truncate(activity.payload.commits[ii - 1].message, 250) + '</blockquote>';
+                      '/commit/' + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
+                      '</a> ' + truncate(activity.payload.commits[ii - 1].message, 250) + '</blockquote>';
             } else if (count > 4) {
               for (; 5 >= ii;) 
                 body += '<blockquote><a target="_blank" href="https://github.com/' + activity.repo.name +
-													'/commit/' + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
-													'</a> ' + truncate(activity.payload.commits[ii - 1].message, 250) + '</blockquote>', ii++;
+                          '/commit/' + activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) +
+                          '</a> ' + truncate(activity.payload.commits[ii - 1].message, 250) + '</blockquote>', ii++;
               body += '<a target="_blank" href="https://github.com/' + activity.repo.name + '/compare/' + first + '...' +
-													last + '">compare these commits and ' + (count - 5) + ' others &raquo;</a>';
+                          last + '">compare these commits and ' + (count - 5) + ' others &raquo;</a>';
             } else {
               for (; count >= ii;) 
                 body += '<blockquote><a href="https://github.com/' + activity.repo.name + '/commit/' +
-													activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + '</a> ' +
-													truncate(activity.payload.commits[ii - 1].message, 250) + '</blockquote>', ii++;
+                          activity.payload.commits[ii - 1].sha + '">' + activity.payload.commits[ii - 1].sha.substring(0, 10) + '</a> ' +
+                          truncate(activity.payload.commits[ii - 1].message, 250) + '</blockquote>', ii++;
 
               body += '<a target="_blank" href="https://github.com/' + activity.repo.name + '/compare/' + first + '...' +
-											last + '">compare these commits &raquo;</a>';
+                      last + '">compare these commits &raquo;</a>';
             }
             show = user +' pushed ' + count + ' ' + commit + ' to <a href="https://github.com/' + activity.repo.name +
-									'/tree/' + ref + '">' + ref + '</a> at ' + repo + '<br>' + body;
+                  '/tree/' + ref + '">' + ref + '</a> at ' + repo + '<br>' + body;
             break;
           case 'ReleaseEvent':
             show = user + ' released <a target="_blank" href="' + activity.payload.release.zipball_url +
-									'"></a> <a target="_blank" href="' +
-									activity.payload.release.html_url + '">' + activity.payload.release.name +
-									'</a> at ' + repo + '<br/>';
+                  '"></a> <a target="_blank" href="' +
+                  activity.payload.release.html_url + '">' + activity.payload.release.name +
+                  '</a> at ' + repo + '<br/>';
             break;
           case 'TeamAddEvent':
             break;
@@ -153,12 +153,12 @@ $(document).ready(function(){
               <div class="col s12 m12">
                   <div class="card hoverable">
                     	<div class="card-content">
-												<small class="icon-text"><i class="material-icons tiny">date_range</i>${date_diff}</small>
-												<p>${show}</p>
+                        <small class="icon-text"><i class="material-icons tiny">date_range</i>${date_diff}</small>
+                        <p>${show}</p>
                       </div>
                     </div>
                   </div>
-							</div>
+              </div>
 						`
           );
         });
@@ -193,24 +193,24 @@ $(document).ready(function(){
             break;
           }
           $('#repos').append(`
-            	<div class="col s12 m6">
-								<div class="card hoverable blue-grey darken-1">
-									<a target = "_blank" href="https://github.com/${username}/${repo.name}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">chevron_right</i></a>
-									<div class="card-content white-text">
-										<span class="card-title activator white-text text-darken-4">${repo.name}<i class="material-icons right">more_vert</i></span>
-										<div class = "collection">
-											<a target = "_blank" href="https://github.com/${username}/${repo.name}/network/members" class="collection-item"><span class="new badge" data-badge-caption="">${repo.forks_count}</span>Forks</a>
-											<a target = "_blank" href="https://github.com/${username}/${repo.name}/watchers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.watchers_count}</span>Watchers</a>
-											<a target = "_blank" href="https://github.com/${username}/${repo.name}/stargazers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.stargazers_count}</span>Stars</a>
-											<a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="badge">${lang && `<i class="devicon-${lang}-plain colored"></i>`}${repo.language || '-'}</span>Language</a>
-											<a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.created_at.substring(0,10)}</span>Created</a>
-											<a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.updated_at.substring(0,10)}</span>Last Updated</a>
-										</div>
+              <div class="col s12 m6">
+                <div class="card hoverable blue-grey darken-1">
+                  <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">chevron_right</i></a>
+                  <div class="card-content white-text">
+                    <span class="card-title activator white-text text-darken-4">${repo.name}<i class="material-icons right">more_vert</i></span>
+                    <div class = "collection">
+                      <a target = "_blank" href="https://github.com/${username}/${repo.name}/network/members" class="collection-item"><span class="new badge" data-badge-caption="">${repo.forks_count}</span>Forks</a>
+                      <a target = "_blank" href="https://github.com/${username}/${repo.name}/watchers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.watchers_count}</span>Watchers</a>
+                      <a target = "_blank" href="https://github.com/${username}/${repo.name}/stargazers" class="collection-item"><span class="new badge" data-badge-caption="">${repo.stargazers_count}</span>Stars</a>
+                      <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="badge">${lang && `<i class="devicon-${lang}-plain colored"></i>`}${repo.language || '-'}</span>Language</a>
+                      <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.created_at.substring(0,10)}</span>Created</a>
+                      <a target = "_blank" href="https://github.com/${username}/${repo.name}" class="collection-item"><span class="new badge" data-badge-caption="">${repo.updated_at.substring(0,10)}</span>Last Updated</a>
+                    </div>
                   </div>
-									<div class="card-reveal">
-										<span class="card-title grey-text text-darken-4">${repo.name}<i class="material-icons right blue-grey-text darken-1 small">arrow_drop_down_circle</i></span>
-										<p>${desc}</p>
-									</div>
+                  <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">${repo.name}<i class="material-icons right blue-grey-text darken-1 small">arrow_drop_down_circle</i></span>
+                    <p>${desc}</p>
+                  </div>
                 </div>
               </div>
           `);
@@ -218,28 +218,28 @@ $(document).ready(function(){
       });
       $('#profile').html(`
         <div class="col s12 m7">
-					<h4 class="header"><i class="small material-icons">account_box</i>${user.name || '-'}</h4>
-					<div class="card hoverable horizontal">
-					<div id="details" class="row container">
-					<div class="card-image col s12 m5">
-							<img src="${user.avatar_url}" class="responsive avatar">
-					</div>
-					<div class="card-stacked col s12 m7">
-						<div class="card-content">
-							<div class="collection">
-								<a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.bio || '-'}</span>Bio</a>
-								<a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.company || '-'}</span>Company</a>
-								<a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.location || '-'}</span>Location</a>
-								<a target = "_blank" href="${user.html_url}?tab=repositories" class="collection-item"><span class="new badge" data-badge-caption="">${user.public_repos}</span>Repos</a>
-								<a target = "_blank" href="https://gist.github.com/${user.login}" class="collection-item"><span class="new badge" data-badge-caption="">${user.public_gists}</span>Gists</a>
-								<a target = "_blank" href="${user.html_url}?tab=followers" class="collection-item"><span class="new badge" data-badge-caption="">${user.followers}</span>Followers</a>
-								<a target = "_blank" href="${user.html_url}?tab=following" class="collection-item"><span class="new badge" data-badge-caption="">${user.following}</span>Following</a>
-								<a target = "_blank" href="${user.html_url}" class="collection-item"><span class="new badge" data-badge-caption="">${user.created_at.substring(0,10)}</span>Member From</a>
-							</div>
+          <h4 class="header"><i class="small material-icons">account_box</i>${user.name || '-'}</h4>
+          <div class="card hoverable horizontal">
+          <div id="details" class="row container">
+          <div class="card-image col s12 m5">
+            <img src="${user.avatar_url}" class="responsive avatar">
+          </div>
+          <div class="card-stacked col s12 m7">
+            <div class="card-content">
+              <div class="collection">
+                <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.bio || '-'}</span>Bio</a>
+                <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.company || '-'}</span>Company</a>
+                <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="badge">${user.location || '-'}</span>Location</a>
+                <a target = "_blank" href="${user.html_url}?tab=repositories" class="collection-item"><span class="new badge" data-badge-caption="">${user.public_repos}</span>Repos</a>
+                <a target = "_blank" href="https://gist.github.com/${user.login}" class="collection-item"><span class="new badge" data-badge-caption="">${user.public_gists}</span>Gists</a>
+                <a target = "_blank" href="${user.html_url}?tab=followers" class="collection-item"><span class="new badge" data-badge-caption="">${user.followers}</span>Followers</a>
+                <a target = "_blank" href="${user.html_url}?tab=following" class="collection-item"><span class="new badge" data-badge-caption="">${user.following}</span>Following</a>
+                <a target = "_blank" href="${user.html_url}" class="collection-item"><span class="new badge" data-badge-caption="">${user.created_at.substring(0,10)}</span>Member From</a>
+              </div>
             </div>
-						<div class="card-action">
-							<a target = "_blank" href="${user.html_url}">See More</a>
-						</div>
+            <div class="card-action">
+              <a target = "_blank" href="${user.html_url}">See More</a>
+            </div>
           </div>
         </div>
       </div>
